@@ -8,6 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
+
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -21,6 +26,7 @@ import java.util.UUID;
 @Builder
 public class BeerDto {
 
+    @JsonProperty("beerId")
     @Null
     private UUID id;
 
@@ -33,7 +39,11 @@ public class BeerDto {
     @Positive
     private Long upc;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal price;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX", shape = JsonFormat.Shape.STRING)
     private OffsetDateTime createdDate;
+
     private OffsetDateTime lastUpdatedDate;
 }
